@@ -1,9 +1,10 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Contact.Api
+namespace Contact.DataAccess.Models
 {
     public class ContactModel
     {
+
         public int Id { get; set; }
         [Required]
         public string FirstName { get; set; }

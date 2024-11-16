@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Contact.DataAccess.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Contact.Api.Controllers
 {
