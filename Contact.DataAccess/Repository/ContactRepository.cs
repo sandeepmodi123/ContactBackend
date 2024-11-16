@@ -27,9 +27,9 @@ namespace Contact.DataAccess.Repository
             return result;
         }
 
-        public async Task<bool> DeleteContact(string id)
+        public async Task<bool> DeleteContact(int id)
         {
-            return _jsonDataStore.DeleteItem(id);
+            return await _contactCollection.DeleteOneAsync(id);
         }
 
         public async Task<ContactModel> ReadContact(int id)
@@ -39,7 +39,7 @@ namespace Contact.DataAccess.Repository
 
         public async Task<bool> UpdateContact(ContactModel contact)
         {
-            return _jsonDataStore.UpdateItem(contact.Id.ToString(), contact);
+            return await _contactCollection.UpdateOneAsync(contact.Id, contact);
         }
 
         public async Task<List<ContactModel>> GetAllContacts()

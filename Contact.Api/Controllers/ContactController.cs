@@ -1,29 +1,52 @@
 ﻿using Contact.DataAccess.Models;
+using Contact.Service.Contract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Contact.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ContactController : ControllerBase
     {
         private readonly ILogger<ContactController> _logger;
+        private readonly IContactService _contactService;
 
-        public ContactController(ILogger<ContactController> logger)
+        public ContactController(ILogger<ContactController> logger, IContactService contactService)
         {
             _logger = logger;
+            _contactService = contactService;
         }
 
-        [HttpGet(Name = "GetContacts")]
-        public IEnumerable<ContactModel> Get()
+        [HttpGet]
+        public async Task<IEnumerable<ContactModel>> GetAllContacts()
         {
-            return Enumerable.Range(1, 5).Distinct().Select(index => new ContactModel
-            {
-                Email = "abc@xyz.com",
-                Id = Random.Shared.Next(1, 5),
-                FirstName = "ABC",
-                LastName = "XYZ"
-            }).ToArray();
+            return await _contactService.GetAllContacts();
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ContactModel> GetContactById(int id)
+        {
+            return await _contactService.ReadContact(id);
+        }
+
+        [HttpPost]
+        public async Task<bool> CreateContact(ContactModel contactModel)
+        {
+            return await _contactService.CreateContact(contactModel);
+        }
+
+        [HttpPut]
+        public async Task<bool> UpdateContact(ContactModel contactModel)
+        {
+            return await _contactService.UpdateContact(contactModel);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<bool> DeleteContact(int id)
+        {
+            return await _contactService.DeleteContact(id);
         }
     }
 }
