@@ -1,4 +1,8 @@
-﻿
+﻿using Contact.DataAccess.Repository;
+using Contact.Service.Contract;
+using Contact.Service.Implementation;
+using JsonFlatFileDataStore;
+
 namespace Contact.Api
 {
     public class Startup
@@ -10,6 +14,11 @@ namespace Contact.Api
         }
         public void ConfigureServices(IServiceCollection services)
         {
+            var jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(), Configuration["file"]);
+            services.AddSingleton<IDataStore>(new DataStore(jsonFilePath, keyProperty: Configuration["DataStore:IdField"],
+            reloadBeforeGetCollection: Configuration.GetValue<bool>("DataStore:EagerDataReload")));
+            services.AddTransient<IContactRepository, ContactRepository>();
+            services.AddTransient<IContactService, ContactService>();
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
