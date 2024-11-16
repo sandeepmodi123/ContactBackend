@@ -25,9 +25,9 @@ namespace Contact.Api.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<bool> GetContactById(string id)
+        public async Task<ContactModel> GetContactById(int id)
         {
-            return true;
+            return await _contactService.ReadContact(id);
         }
 
         [HttpPost]
@@ -44,7 +44,7 @@ namespace Contact.Api.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        public async Task<bool> DeleteContact(string id)
+        public async Task<bool> DeleteContact(int id)
         {
             return await _contactService.DeleteContact(id);
         }

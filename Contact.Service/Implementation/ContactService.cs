@@ -16,7 +16,7 @@ namespace Contact.Service.Implementation
             return await _contactRepository.CreateContact(contact);
         }
 
-        public async Task<bool> DeleteContact(string id)
+        public async Task<bool> DeleteContact(int id)
         {
             return await _contactRepository.DeleteContact(id);
         }

@@ -1,1 +1,10 @@
-{}
+{
+  "contactModel": [
+    {
+      "id": 1,
+      "firstName": "Sandeep",
+      "lastName": "Modi",
+      "email": "sandeep.modi123@gmail.com"
+    }
+  ]
+}
