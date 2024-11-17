@@ -1,4 +1,5 @@
-﻿using Contact.DataAccess.Models;
+﻿using Contact.Api.Logger;
+using Contact.DataAccess.Models;
 using Contact.Service.Contract;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +9,10 @@ namespace Contact.Api.Controllers
     [Route("api/[controller]")]
     public class ContactController : ControllerBase
     {
-        private readonly ILogger<ContactController> _logger;
+        private readonly ILoggerManager _logger;
         private readonly IContactService _contactService;
 
-        public ContactController(ILogger<ContactController> logger, IContactService contactService)
+        public ContactController(ILoggerManager logger, IContactService contactService)
         {
             _logger = logger;
             _contactService = contactService;
@@ -20,6 +21,7 @@ namespace Contact.Api.Controllers
         [HttpGet]
         public async Task<IEnumerable<ContactModel>> GetAllContacts()
         {
+            _logger.LogInfo("Request received");
             return await _contactService.GetAllContacts();
         }
 
