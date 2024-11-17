@@ -27,6 +27,7 @@ namespace Contact.Api
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
+            services.AddCors();
         }
 
         public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env, ILoggerManager logger)
@@ -42,6 +43,7 @@ namespace Contact.Api
             app.UseRouting();
             app.ConfigureExceptionHandler(logger);
             app.UseAuthorization();
+            app.UseCors(m => m.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }

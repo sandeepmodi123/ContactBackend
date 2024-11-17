@@ -16,3 +16,4 @@ namespace Contact.DataAccess.Models
         public string Email { get; set; }
     }
 }
+ 
