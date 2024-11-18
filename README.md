@@ -10,6 +10,7 @@ This project is a .NET Core Web API that provides an interface to manage contact
 - [Running the Application](#running-the-application)
 - [API Endpoints](#api-endpoints)
 - [Built With](#built-with)
+- [Run Application](#run-application)
 
 ## Getting Started
 These instructions will help you set up the project on your local machine for development and testing purposes.
@@ -56,3 +57,6 @@ DELETE /api/Contact/{id} - Delete a value
 .NET Core 6.0
 
 ASP.NET Core Web API
+
+## Run Application
+To run the application, open a solution in Visual Studio and run it. A Swagger UI will represent all endpoints for contact management.
