@@ -21,7 +21,6 @@ namespace Contact.Api.Controllers
         [HttpGet]
         public async Task<IEnumerable<ContactModel>> GetAllContacts()
         {
-            _logger.LogInfo("Request received");
             return await _contactService.GetAllContacts();
         }
 
@@ -49,6 +48,13 @@ namespace Contact.Api.Controllers
         public async Task<bool> DeleteContact(int id)
         {
             return await _contactService.DeleteContact(id);
+        }
+
+        [HttpPost]
+        [Route("Search")]
+        public async Task<IEnumerable<ContactModel>> SearchContacts(QueryModel query)
+        {
+            return await _contactService.SearchContacts(query);
         }
     }
 }

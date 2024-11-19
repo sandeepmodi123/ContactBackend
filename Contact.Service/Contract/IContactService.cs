@@ -9,5 +9,6 @@ namespace Contact.Service.Contract
         Task<bool> UpdateContact(ContactModel contact);
         Task<bool> DeleteContact(int id);
         Task<List<ContactModel>> GetAllContacts();
+        Task<List<ContactModel>> SearchContacts(QueryModel query);
     }
 }
