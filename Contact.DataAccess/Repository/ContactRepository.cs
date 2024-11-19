@@ -1,5 +1,8 @@
 ﻿using Contact.DataAccess.Models;
 using JsonFlatFileDataStore;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq.Expressions;
 
 namespace Contact.DataAccess.Repository
 {
@@ -44,7 +47,32 @@ namespace Contact.DataAccess.Repository
 
         public async Task<List<ContactModel>> GetAllContacts()
         {
-            return _contactCollection.AsQueryable().ToList();
+            return _contactCollection.AsQueryable().OrderBy(x=>x.FirstName).ToList();
+        }
+
+        public async Task<List<ContactModel>> SearchContacts(QueryModel query)
+        {
+            List<ContactModel> result = new List<ContactModel>();
+            if (!string.IsNullOrEmpty(query.SearchItem))
+            {
+                result = _contactCollection.AsQueryable().Where(p => p.FirstName.Contains(query.SearchItem, StringComparison.OrdinalIgnoreCase)
+                                       || p.LastName.Contains(query.SearchItem, StringComparison.OrdinalIgnoreCase)
+                                       || p.Email.Contains(query.SearchItem, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+            else
+            {
+                result = _contactCollection.AsQueryable().ToList();
+            }
+
+            switch (query.SortBy)
+            {
+                case "LastName":
+                    return (query.IsSortAscending)? result.OrderBy(p => p.LastName).ToList() : result.OrderByDescending(p => p.LastName).ToList();
+                case "Email":
+                    return (query.IsSortAscending) ? result.OrderBy(p => p.Email).ToList() : result.OrderByDescending(p => p.Email).ToList();
+                default:
+                    return (query.IsSortAscending) ? result.OrderBy(p => p.FirstName).ToList() : result.OrderByDescending(p => p.FirstName).ToList();
+            }
         }
     }
 }

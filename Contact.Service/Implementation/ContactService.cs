@@ -35,5 +35,10 @@ namespace Contact.Service.Implementation
         {
             return await _contactRepository.UpdateContact(contact);
         }
+
+        public async Task<List<ContactModel>> SearchContacts(QueryModel query)
+        {
+            return await _contactRepository.SearchContacts(query);
+        }
     }
 }
